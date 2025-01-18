@@ -11,6 +11,7 @@ import Dashboard from "./dashboard/App";
 import { supabase } from "./lib/supabaseClient";
 import Login from "./login/App";
 import FriendsPage from "./pages/FriendsPage";
+import AddFriend from "./components/Friends/AddFriend";
 import Header from "./components/Header";
 
 function App() {
@@ -101,6 +102,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/friends" element={<FriendsPage />} />
+          <Route path="/add-friend" element={<AddFriend />} />
         </Routes>
       </div>
     </div>

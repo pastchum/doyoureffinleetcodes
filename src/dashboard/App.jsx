@@ -54,7 +54,12 @@ const Dashboard = () => {
   // 1) Fetch supabase.user
   async function fetchUser() {
     try {
-      const { data, error } = await supabase.auth.getUser();
+      // Get the current session and user details
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+
       if (error) {
         console.error("Error from supabase.auth.getUser:", error);
       }
@@ -67,6 +72,7 @@ const Dashboard = () => {
       }
     } catch (err) {
       console.error("Supabase fetch user error:", err);
+      navigate("/login");
     }
   }
 
