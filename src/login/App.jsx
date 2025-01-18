@@ -37,6 +37,8 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
+    console.log("loading dashboard");
+
     getUser();
   }, []);
 

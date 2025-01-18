@@ -55,15 +55,12 @@ const Dashboard = () => {
   async function fetchUser() {
     try {
       // Get the current session and user details
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession();
+      const { data, error } = await supabase.auth.getUser();
 
       if (error) {
         console.error("Error from supabase.auth.getUser:", error);
       }
-      if (data.user) {
+      if (data?.user) {
         setUser(data.user);
         console.log("Supabase user:", data.user);
       } else {
@@ -94,6 +91,7 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
+    console.log("loading dashboard");
     fetchUser();
   }, []);
 
