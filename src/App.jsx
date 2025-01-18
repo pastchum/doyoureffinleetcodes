@@ -13,6 +13,7 @@ import Dashboard from "./dashboard/App";
 import { supabase } from "./lib/supabaseClient";
 import Login from "./login/App";
 import FriendsPage from "./pages/FriendsPage";
+import AddFriend from "./components/Friends/AddFriend";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -86,24 +87,31 @@ function App() {
       />
 
       {/* Logout button */}
-      {user && (
-        <button className="logout-button" onClick={handleLogout}>
-          Logout
-        </button>
-      )}
+
+      <button
+        className="logout-button"
+        onClick={handleLogout}
+        style={{ cursor: "pointer", marginRight: "5px" }}
+      >
+        Logout
+      </button>
 
       {/* Link to Friends */}
-      {user && (
-        <Link to="/friends" className="friends-link">
-          Friends
-        </Link>
-      )}
+
+      <button
+        className="logout-button"
+        onClick={() => navigate("/friends")}
+        style={{ cursor: "pointer", marginLeft: "5px" }}
+      >
+        Friends
+      </button>
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/friends" element={<FriendsPage />} />
+        <Route path="/add-friend" element={<AddFriend />} />
       </Routes>
     </div>
   );

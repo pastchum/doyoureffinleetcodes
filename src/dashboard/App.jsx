@@ -8,18 +8,27 @@ const Dashboard = () => {
 
   async function fetchUser() {
     try {
-      const { data, error } = await supabase.auth.getUser();
+      // Get the current session and user details
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+
       if (error) {
-        console.error(error);
+        console.error("Error fetching session:", error);
+        navigate("/login");
+        return;
       }
-      if (data.user && data.user !== user) {
-        setUser(data.user.user_metadata);
-        console.log(data.user);
-      } else if (!data.user) {
+
+      if (session?.user) {
+        setUser(session.user.user_metadata || {});
+        console.log("User metadata:", session.user.user_metadata);
+      } else {
         navigate("/login");
       }
     } catch (err) {
       console.error("Supabase fetch user error:", err);
+      navigate("/login");
     }
   }
 
@@ -31,9 +40,8 @@ const Dashboard = () => {
     <div>
       <h1>Dashboard</h1>
       <div>
-        <h2>User Name: {user.leetcodeUsername}</h2>
+        <h2>Name: {user.name || "Anonymous"}</h2>
         <p>LeetCode Count: 0</p>
-        <h3>Friends List:</h3>
       </div>
     </div>
   ) : (

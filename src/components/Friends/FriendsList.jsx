@@ -10,7 +10,6 @@ const FriendsList = () => {
 
   return (
     <div>
-      <h2>Your Friends</h2>
       <ul>
         {friends.map((friend) => (
           <li key={friend.friend_id}>{friend.name}</li>
