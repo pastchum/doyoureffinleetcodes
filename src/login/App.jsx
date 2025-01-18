@@ -92,8 +92,10 @@ const LoginPage = () => {
 
     const handleSignUp = async (e) => {
       e.preventDefault();
-      console.log("Signing up: " + email + " " + leetcodeUsername);
-      const { data, error } = await supabase.auth.signUp({
+
+      console.log("Signing up: " + email + " " + name);
+      const { error } = await supabase.auth.signUp({
+
         email,
         password,
         options: {

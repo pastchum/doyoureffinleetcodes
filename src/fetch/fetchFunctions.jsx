@@ -6,7 +6,7 @@ export async function fetchSubmissions(username) {
 
     const data = await response.json();
     if (response.ok && data) {
-      const submissions = data.recentSubmissionList;
+      const submissions = data.recentSubmissions;
       if (!submissions) {
         throw new Error(
           "Username does not exist. Unable to fetch most recent submission"
