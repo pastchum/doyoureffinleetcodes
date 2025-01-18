@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const addUserToDatabase = async (user) => {
@@ -25,19 +28,29 @@ const LoginPage = () => {
   };
 
   const getUser = async () => {
-    const { data, error } = await supabase.auth.getUser();
-    if (error) {
-      console.error("Error fetching user:", error);
-      return;
-    }
-    if (data && data.user) {
-      await addUserToDatabase(data.user);
-      navigate("/");
+    setLoading(true);
+    try {
+      console.log("gettign user");
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error("Error fetching user:", error);
+        return;
+      }
+      if (data && data.user) {
+        await addUserToDatabase(data.user);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    getUser();
+    console.log(user);
+    if (user == null) getUser();
+    else navigate("/");
   }, []);
 
   function LoginComponent() {
@@ -60,25 +73,29 @@ const LoginPage = () => {
       <div>
         <h1>Login</h1>
         <form onSubmit={handleLogin}>
-          <div>
+          <div className="input-container">
             <label>Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="input-field"
             />
           </div>
-          <div>
+          <div className="input-container">
             <label>Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="input-field"
             />
           </div>
-          <button type="submit">Login</button>
+          <button className="button button:hover" type="submit">
+            Login
+          </button>
         </form>
       </div>
     );
@@ -93,14 +110,13 @@ const LoginPage = () => {
     const handleSignUp = async (e) => {
       e.preventDefault();
       console.log("Signing up: " + email + " " + name);
-      const { error } = await supabase.auth.signUp({
-
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
             name: name,
-            leetcode_username: leetcodeUsername,
+            leetcodeUsername: leetcodeUsername,
           },
         },
       });
@@ -117,58 +133,68 @@ const LoginPage = () => {
       <div>
         <h1>Sign Up</h1>
         <form onSubmit={handleSignUp}>
-          <div>
+          <div className="input-container">
             <label>Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="input-field"
             />
           </div>
-          <div>
+          <div className="input-container">
             <label>Name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              className="input-field"
             />
           </div>
-          <div>
+          <div className="input-container">
             <label>Leetcode Username</label>
             <input
               type="text"
               value={leetcodeUsername}
               onChange={(e) => setLeetcodeUsername(e.target.value)}
               required
+              className="input-field"
             />
           </div>
-          <div>
+          <div className="input-container">
             <label>Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="input-field"
             />
           </div>
-          <button type="submit">Sign Up</button>
+          <button className="button button:hover" type="submit">
+            Sign Up
+          </button>
         </form>
       </div>
     );
   }
 
-  return isLogin ? (
+  return loading ? (
+    <div>Getting User Data...</div>
+  ) : isLogin ? (
     <>
       <LoginComponent />{" "}
-      <button onClick={() => setIsLogin(false)}> Sign up</button>
+      <button className="button button:hover" onClick={() => setIsLogin(false)}>
+        Sign up
+      </button>
     </>
   ) : (
     <>
       <SignUpComponent />
-      <button onClick={() => setIsLogin(true)}>
-        Already have an account? Login
+      <button className="button button:hover" onClick={() => setIsLogin(true)}>
+        Already have an account?
       </button>
     </>
   );
