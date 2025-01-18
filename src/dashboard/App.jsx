@@ -106,6 +106,9 @@ const Dashboard = () => {
   // Extract data from leetcodeData
   const totalSolved = leetcodeData?.totalSolved ?? 0;
   const recentSubmissions = leetcodeData?.recentSubmissions ?? [];
+  const easySolved = leetcodeData?.easySolved ?? 0;
+  const mediumSolved = leetcodeData?.mediumSolved ?? 0;
+  const hardSolved = leetcodeData?.hardSolved ?? 0;
 
   // Calculate the progress percentage
   const progressPercentage = Math.round((totalSolved / TOTAL_QUESTIONS) * 100);
@@ -155,6 +158,21 @@ const Dashboard = () => {
         {/* Derogatory message in italics */}
         <p style={{ fontStyle: "italic" }}>{message}</p>
 
+        <div>
+          <h3>Problems Solved by Difficulty</h3>
+          <ul style={{ listStyle: "none", paddingLeft: 0 }}>
+            <li style={{ color: "green" }}>
+              Easy: {easySolved}
+            </li>
+            <li style={{ color: "orange" }}>
+              Medium: {mediumSolved}
+            </li>
+            <li style={{ color: "red" }}>
+              Hard: {hardSolved}
+            </li>
+          </ul>
+        </div>
+
         <div className="recent-submissions-container">
           <h2>Recent Submissions:</h2>
           <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
@@ -166,7 +184,6 @@ const Dashboard = () => {
               ) : null
             )}
           </ul>
-        </div>
       </div>
     </div>
   );
