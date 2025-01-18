@@ -1,35 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../lib/supabaseClient";
 
-const Dashboard = ({ user }) => {
-    return (
-        <div>
-            <h1>Dashboard</h1>
-            <div>
-                <h2>username: {user.name}</h2>
-                <p>LeetCode Count: {user.leetcodeCount}</p>
-                <h3>Friends List:</h3>
-                <ul>
-                    {user.friends.map((friend, index) => (
-                        <li key={index}>{friend}</li>
-                    ))}
-                </ul>
-            </div>
-        </div>
-    );
-};
+const Dashboard = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
-const user = {
-    name: 'John Doe',
-    leetcodeCount: 42,
-    friends: ['Alice', 'Bob', 'Charlie']
+  async function fetchUser() {
+    try {
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error(error);
+      }
+      if (data.user && data.user !== user) {
+        setUser(data.user.user_metadata);
+        console.log(data.user);
+      } else if (!data.user) {
+        navigate("/login");
+      }
+    } catch (err) {
+      console.error("Supabase fetch user error:", err);
+    }
+  }
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+
+  return user ? (
+    <div>
+      <h1>Dashboard</h1>
+      <div>
+        <h2>User Name: {user.githubUsername}</h2>
+        <p>LeetCode Count: 0</p>
+        <h3>Friends List:</h3>
+      </div>
+    </div>
+  ) : (
+    <div>No user logged in</div>
+  );
 };
 
 const App = () => {
-    return (
-        <div>
-            <Dashboard user={user} />
-        </div>
-    );
+  return (
+    <div>
+      <Dashboard />
+    </div>
+  );
 };
 
 export default App;
