@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -10,8 +10,11 @@ import leetcodeLogo from "./icons/leetcode.png";
 import profileLogo from "./icons/profile.png";
 import "./App.css";
 import Dashboard from "./dashboard/App";
+import { supabase } from "./lib/supabaseClient";
+import Login from "./login/App";
 
 function App() {
+  const [user, setUser] = useState(null);
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -26,6 +29,26 @@ function App() {
     }
     setIsDashboardOpen((prev) => !prev);
   };
+  async function fetchUser() {
+    try {
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error(error);
+      }
+      if (data.user && data.user !== user) {
+        setUser(data.user);
+        console.log(data.user);
+      } else if (!data.user) {
+        navigate("/login");
+      }
+    } catch (err) {
+      console.error("Supabase fetch user error:", err);
+    }
+  }
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <div>
@@ -48,8 +71,11 @@ function App() {
       />
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+        </>
       </Routes>
     </div>
   );
