@@ -2,15 +2,15 @@ import { useState } from "react";
 import { addFriend } from "../../lib/friendsService";
 
 const AddFriend = () => {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
 
   const handleAddFriend = async (e) => {
     e.preventDefault();
     try {
-      await addFriend(username);
-      setStatusMessage(`Friend with username ${username} added successfully!`);
-      setUsername(""); // Reset input field
+      await addFriend(name);
+      setStatusMessage(`Friend with name ${name} added successfully!`);
+      setName(""); // Reset input field
     } catch (error) {
       setStatusMessage(`Error: ${error.message}`);
     }
@@ -21,10 +21,10 @@ const AddFriend = () => {
       <h2>Add a Friend</h2>
       <form onSubmit={handleAddFriend}>
         <input
-          type="username"
-          placeholder="Enter friend's username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="name"
+          placeholder="Enter friend's name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
         />
         <button type="submit">Add Friend</button>

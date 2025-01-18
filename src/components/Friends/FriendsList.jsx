@@ -13,7 +13,7 @@ const FriendsList = () => {
       <h2>Your Friends</h2>
       <ul>
         {friends.map((friend) => (
-          <li key={friend.friend_id}>{friend.username}</li>
+          <li key={friend.friend_id}>{friend.name}</li>
         ))}
       </ul>
     </div>
