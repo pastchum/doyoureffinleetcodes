@@ -8,41 +8,28 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./dashboard/App";
-import { supabase } from "./lib/supabaseClient";
 import Login from "./login/App";
 import FriendsPage from "./pages/FriendsPage";
 import AddFriend from "./components/Friends/AddFriend";
 import Header from "./components/Header";
 import CheckDailyLeetcode from "./components/CheckDailyLeetcode";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
   const navigate = useNavigate();
 
-  // This toggles between showing the dashboard and going back to home
-
-  async function fetchUser() {
-    console.log("fetchign");
-    try {
-      const { data, error } = await supabase.auth.getUser();
-      if (error) {
-        console.error(error);
-      }
-      if (data && data.user && data.user !== user) {
-        setUser(data.user);
-        console.log(data.user);
-      } else if (!data.user) {
-        navigate("/login");
-      }
-    } catch (err) {
-      console.error("Supabase fetch user error:", err);
-    }
-  }
-
-  //fetch user with each navigation
+  //navigate to login if no user
   useEffect(() => {
-    navigate("/");
-    fetchUser();
+    if (user == null) {
+      navigate("/login");
+    }
+  }, [user]);
+
+  //navigate to root upon start
+  useEffect(() => {
+    if (user) navigate("/");
+    else navigate("/login");
   }, []);
 
   return (
@@ -76,7 +63,9 @@ function Home() {
 export default function WrappedApp() {
   return (
     <Router>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </Router>
   );
 }

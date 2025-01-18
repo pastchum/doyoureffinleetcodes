@@ -1,28 +1,14 @@
 import { supabase } from "../lib/supabaseClient";
 import { useState, useEffect } from "react";
 import { fetchSubmissions } from "../fetch/fetchFunctions";
+import { useAuth } from "../context/AuthContext";
 
 export default function CheckDailyLeetcode() {
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
   const [dailyDone, setDailyDone] = useState(false);
 
   // Loading for fetch
   const [loading, setLoading] = useState(false);
-
-  // Get user
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const { data, error } = await supabase.auth.getUser();
-        if (data?.user) {
-          setUser(data.user);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchUser();
-  }, []);
 
   // Check for daily and update the state
   useEffect(() => {

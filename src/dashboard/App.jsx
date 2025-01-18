@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { fetchUserData } from "../fetch/fetchFunctions";
+import { useAuth } from "../context/AuthContext";
 
 const TOTAL_QUESTIONS = 3313;
 
@@ -45,35 +46,13 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
 
   // We'll store all LeetCode data (including totalSolved, etc.) in one object:
   const [leetcodeData, setLeetcodeData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // 1) Fetch supabase.user
-  async function fetchUser() {
-    try {
-      // Get the current session and user details
-      const { data, error } = await supabase.auth.getUser();
-
-      if (error) {
-        console.error("Error from supabase.auth.getUser:", error);
-      }
-      if (data?.user) {
-        setUser(data.user);
-        console.log("Supabase user:", data.user);
-      } else {
-        // No user => go to /login
-        navigate("/login");
-      }
-    } catch (err) {
-      console.error("Supabase fetch user error:", err);
-      navigate("/login");
-    }
-  }
-
-  // 2) Fetch data from your LeetCode API
+  // 1) Fetch data from your LeetCode API
   async function fetchLeetCodeData(username) {
     if (!username) return;
     try {
@@ -89,11 +68,6 @@ const Dashboard = () => {
       setLoading(false);
     }
   }
-
-  useEffect(() => {
-    console.log("loading dashboard");
-    fetchUser();
-  }, []);
 
   useEffect(() => {
     // user.user_metadata.leetcodeUsername => the LC handle
