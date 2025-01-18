@@ -80,7 +80,7 @@ const LoginPage = () => {
               className="input-field"
             />
           </div>
-          <button className="login-button" type="submit">
+          <button className="button button:hover" type="submit">
             Login
           </button>
         </form>
@@ -160,7 +160,7 @@ const LoginPage = () => {
               className="input-field"
             />
           </div>
-          <button className="login-button" type="submit">
+          <button className="button button:hover" type="submit">
             Sign Up
           </button>
         </form>
@@ -171,14 +171,14 @@ const LoginPage = () => {
   return isLogin ? (
     <>
       <LoginComponent />{" "}
-      <button className="login-button" onClick={() => setIsLogin(false)}>
+      <button className="button button:hover" onClick={() => setIsLogin(false)}>
         Sign up
       </button>
     </>
   ) : (
     <>
       <SignUpComponent />
-      <button className="login-button" onClick={() => setIsLogin(true)}>
+      <button className="button button:hover" onClick={() => setIsLogin(true)}>
         Already have an account?
       </button>
     </>

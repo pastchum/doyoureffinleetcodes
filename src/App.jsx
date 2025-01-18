@@ -20,14 +20,21 @@ function App() {
 
   // This toggles between showing the dashboard and going back to home
   const handleProfileClick = () => {
-    if (!isDashboardOpen) {
-      // If the dashboard is currently closed, open it
-      navigate("/dashboard");
-    } else {
-      // If the dashboard is open, go back to home
-      navigate("/");
+    if (user !== null) {
+      if (!isDashboardOpen) {
+        // If the dashboard is currently closed, open it
+        navigate("/dashboard");
+      } else {
+        // If the dashboard is open, go back to home
+        navigate("/");
+      }
+      setIsDashboardOpen((prev) => !prev);
     }
-    setIsDashboardOpen((prev) => !prev);
+  };
+
+  // This handles the navigation to the friends screen
+  const handleFriendsButtonClick = () => {
+    navigate("/friends");
   };
 
   async function fetchUser() {
@@ -39,6 +46,7 @@ function App() {
       if (data.user && data.user !== user) {
         setUser(data.user);
         console.log(data.user);
+        navigate("/");
       } else if (!data.user) {
         navigate("/login");
       }
@@ -68,26 +76,33 @@ function App() {
   return (
     <div>
       <Header handleProfileClick={handleProfileClick} />
-      {/* Logout button */}
-      {user && (
-        <button className="logout-button" onClick={handleLogout}>
-          Logout
-        </button>
-      )}
 
-      {/* Link to Friends */}
-      {user && (
-        <Link to="/friends" className="friends-link">
-          Friends
-        </Link>
-      )}
+      <div style={{ marginTop: "100px" }}>
+        <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+          {/* Logout button */}
+          {user && (
+            <button className="button button:hover" onClick={handleLogout}>
+              Logout
+            </button>
+          )}
+          {/* Link to Friends */}
+          {user && (
+            <button
+              onClick={handleFriendsButtonClick}
+              className="button button-hover"
+            >
+              Friends
+            </button>
+          )}
+        </div>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/friends" element={<FriendsPage />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/friends" element={<FriendsPage />} />
+        </Routes>
+      </div>
     </div>
   );
 }
@@ -98,12 +113,8 @@ function Home() {
   return (
     <>
       <h1>Leetcode NOW</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          Count is {count}
-        </button>
-      </div>
-      <p className="read-the-docs">Click on the LeetCode logo to learn more</p>
+      <div className="card"></div>
+      <p className="read-the-docs">Hurry up and do your leetcodes you bum</p>
     </>
   );
 }

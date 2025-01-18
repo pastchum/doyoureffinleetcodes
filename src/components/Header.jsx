@@ -12,6 +12,7 @@ export default function Header({ handleProfileClick }) {
         backgroundColor: "black",
         zIndex: 1000,
         boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+        marginRight: 60,
       }}
     >
       <div
@@ -27,7 +28,12 @@ export default function Header({ handleProfileClick }) {
           href="https://leetcode.com"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ display: "flex", alignItems: "center" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            color: "white",
+            textDecoration: "none",
+          }}
         >
           <img
             src={leetcodeLogo}
@@ -42,8 +48,8 @@ export default function Header({ handleProfileClick }) {
               flexDirection: "column",
             }}
           >
-            <h3 style={{ margin: 0 }}>Do Your Effin</h3>
-            <h2 style={{ margin: 0 }}>LEETCODES</h2>
+            <h3 style={{ margin: 0, textAlign: "left" }}>Do Your Effin</h3>
+            <h2 style={{ margin: 0, textAlign: "left" }}>LEETCODES</h2>
           </div>
         </a>
       </div>

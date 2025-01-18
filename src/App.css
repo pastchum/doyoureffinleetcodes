@@ -80,12 +80,39 @@ body {
   margin: 1rem;
 }
 
-.login-button {
+.button {
   width: 50%;
   background: #e8a950;
   border: #f0f0f0;
   border-radius: 5px;
   margin: 10px;
   color: white;
+}
 
+.button:hover {
+  width: 50%;
+  scale: 105%;
+  background: #e8a950;
+  border: #f0f0f0;
+  border-radius: 5px;
+  margin: 10px;
+  color: white;
+  transition: 25ms;
+}
+
+.recent-submissions-container {
+  border: 1px solid #AAA;
+  padding: 3px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  gap: 5px;
+  border-radius: 5px;
+}
+
+.recent-submission-container {
+  border: 1px solid #AAA;
+  background-color: #333;
+  padding: 3px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin: 2;
 }
