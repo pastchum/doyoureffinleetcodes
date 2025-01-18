@@ -1,16 +1,9 @@
-import { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Link,
-  useNavigate,
-} from "react-router-dom";
-import leetcodeLogo from "./icons/leetcode.png";
-import profileLogo from "./icons/profile.png";
-import "./App.css";
-import Dashboard from "./dashboard/App";
-import FriendsPage from "./pages/FriendsPage";
+import { useState } from 'react'
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom'
+import leetcodeLogo from './icons/leetcode.png'
+import profileLogo from './icons/profile.png'
+import './App.css'
+import Dashboard from './dashboard/App'
 
 function App() {
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
@@ -25,8 +18,8 @@ function App() {
       // If the dashboard is open, go back to home
       navigate("/");
     }
-    setIsDashboardOpen((prev) => !prev);
-  };
+    setIsDashboardOpen((prev) => !prev)
+  }
 
   return (
     <div>

@@ -5,7 +5,7 @@ const Dashboard = ({ user }) => {
         <div>
             <h1>Dashboard</h1>
             <div>
-                <h2>User Name: {user.name}</h2>
+                <h2>username: {user.name}</h2>
                 <p>LeetCode Count: {user.leetcodeCount}</p>
                 <h3>Friends List:</h3>
                 <ul>
