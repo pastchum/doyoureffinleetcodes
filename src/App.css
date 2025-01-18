@@ -50,3 +50,18 @@ body {
   display: block;
   margin: 0 auto;
 }
+
+.leetcode-logo {
+  width: 50px; 
+}
+
+.profile-logo {
+  width: 50px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.read-the-docs {
+  color: #888;
+}
