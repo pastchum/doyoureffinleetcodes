@@ -6,13 +6,12 @@ import {
   Link,
   useNavigate,
 } from "react-router-dom";
-import leetcodeLogo from "./icons/leetcode.png";
-import profileLogo from "./icons/profile.png";
 import "./App.css";
 import Dashboard from "./dashboard/App";
 import { supabase } from "./lib/supabaseClient";
 import Login from "./login/App";
 import FriendsPage from "./pages/FriendsPage";
+import Header from "./components/Header";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -68,23 +67,7 @@ function App() {
 
   return (
     <div>
-      {/* Link to external LeetCode site */}
-      <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer">
-        <img
-          src={leetcodeLogo}
-          className="logo leetcode-logo"
-          alt="LeetCode logo"
-        />
-      </a>
-      {/* Profile icon that toggles the dashboard */}
-      <img
-        src={profileLogo}
-        className="logo profile-logo"
-        alt="Profile logo"
-        onClick={handleProfileClick}
-        style={{ cursor: "pointer" }}
-      />
-
+      <Header handleProfileClick={handleProfileClick} />
       {/* Logout button */}
       {user && (
         <button className="logout-button" onClick={handleLogout}>
