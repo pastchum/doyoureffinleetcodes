@@ -1,37 +1,63 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate
+} from 'react-router-dom'
 import leetcodeLogo from './icons/leetcode.png'
 import profileLogo from './icons/profile.png'
 import './App.css'
-import Dashboard from './dashboard/App' // Import the Dashboard component
+import Dashboard from './dashboard/App'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isDashboardOpen, setIsDashboardOpen] = useState(false)
+  const navigate = useNavigate()
+
+
+  const handleProfileClick = () => {
+    if (isDashboardOpen) {
+      navigate('/') 
+    } else {
+      navigate('/dashboard') 
+    }
+    setIsDashboardOpen(prev => !prev)
+  }
 
   return (
-    <Router>
-      <div>
-        <Link to="https://leetcode.com" target="_blank">
-          <img src={leetcodeLogo} className="logo leetcode-logo" alt="LeetCode logo" />
-        </Link>
-        <Link to="/dashboard">
-          <img src={profileLogo} className="logo profile-logo" alt="Profile logo" />
-        </Link>
-      </div>
+    <div>
+      {/* External link to LeetCode */}
+      <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer">
+        <img src={leetcodeLogo} className="logo leetcode-logo" alt="LeetCode logo" />
+      </a>
+
+      {/* Profile icon to toggle dashboard */}
+      <img
+        src={profileLogo}
+        className="logo profile-logo"
+        alt="Profile logo"
+        onClick={handleProfileClick}
+        style={{ cursor: 'pointer' }}
+      />
+
+      {/* Render routes */}
       <Routes>
-        <Route path="/" element={<Home count={count} setCount={setCount} />} />
+        <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
-    </Router>
+    </div>
   )
 }
 
-function Home({ count, setCount }) {
+
+function Home() {
+  const [count, setCount] = useState(0)
+
   return (
     <>
       <h1>Leetcode NOW</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={() => setCount(count => count + 1)}>
           count is {count}
         </button>
       </div>
@@ -42,4 +68,10 @@ function Home({ count, setCount }) {
   )
 }
 
-export default App
+export default function WrappedApp() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  )
+}
