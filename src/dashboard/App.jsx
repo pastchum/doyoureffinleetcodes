@@ -27,12 +27,11 @@ const Dashboard = () => {
     fetchUser();
   }, []);
 
-
   return user ? (
     <div>
       <h1>Dashboard</h1>
       <div>
-        <h2>User Name: {user.githubUsername}</h2>
+        <h2>User Name: {user.leetcodeUsername}</h2>
         <p>LeetCode Count: 0</p>
         <h3>Friends List:</h3>
       </div>
