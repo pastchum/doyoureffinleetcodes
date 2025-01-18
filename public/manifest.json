@@ -10,7 +10,8 @@
         "identity",
         "tabs",
         "storage",
-        "declarativeNetRequest"
+        "declarativeNetRequest",
+        "notifications"
     ],
     "host_permissions": [
         "<all_urls>"
