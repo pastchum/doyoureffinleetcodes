@@ -130,8 +130,8 @@ const Dashboard = () => {
 
         {/* Show total solved out of 3313 */}
         <p>
-          Total Solved: {totalSolved} / {TOTAL_QUESTIONS} (
-          {progressPercentage}%)
+          Total Solved: {totalSolved} / {TOTAL_QUESTIONS} ({progressPercentage}
+          %)
         </p>
 
         {/* The progress bar */}
@@ -158,17 +158,8 @@ const Dashboard = () => {
         {/* Derogatory message in italics */}
         <p style={{ fontStyle: "italic" }}>{message}</p>
 
-        <h3>Recent Submissions:</h3>
-        <ul>
-          {recentSubmissions.map((sub, idx) => (
-            <li key={idx}>
-              <strong>{sub.title}</strong> – {sub.statusDisplay}
-            </li>
-          ))}
-        </ul>
-
         <div>
-        <h3>Problems Solved by Difficulty</h3>
+          <h3>Problems Solved by Difficulty</h3>
           <ul style={{ listStyle: "none", paddingLeft: 0 }}>
             <li style={{ color: "green" }}>
               Easy: {easySolved}
@@ -181,6 +172,18 @@ const Dashboard = () => {
             </li>
           </ul>
         </div>
+
+        <div className="recent-submissions-container">
+          <h2>Recent Submissions:</h2>
+          <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
+            {recentSubmissions.map((sub, idx) =>
+              idx < 5 ? (
+                <li key={idx} className="recent-submission-container">
+                  <strong>{sub.title}</strong> – {sub.statusDisplay}
+                </li>
+              ) : null
+            )}
+          </ul>
       </div>
     </div>
   );

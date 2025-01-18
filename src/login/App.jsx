@@ -60,25 +60,29 @@ const LoginPage = () => {
       <div>
         <h1>Login</h1>
         <form onSubmit={handleLogin}>
-          <div>
+          <div className="input-container">
             <label>Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="input-field"
             />
           </div>
-          <div>
+          <div className="input-container">
             <label>Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="input-field"
             />
           </div>
-          <button type="submit">Login</button>
+          <button className="button button:hover" type="submit">
+            Login
+          </button>
         </form>
       </div>
     );
@@ -94,7 +98,6 @@ const LoginPage = () => {
       e.preventDefault();
       console.log("Signing up: " + email + " " + name);
       const { error } = await supabase.auth.signUp({
-
         email,
         password,
         options: {
@@ -117,43 +120,49 @@ const LoginPage = () => {
       <div>
         <h1>Sign Up</h1>
         <form onSubmit={handleSignUp}>
-          <div>
+          <div className="input-container">
             <label>Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="input-field"
             />
           </div>
-          <div>
+          <div className="input-container">
             <label>Name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              className="input-field"
             />
           </div>
-          <div>
+          <div className="input-container">
             <label>Leetcode Username</label>
             <input
               type="text"
               value={leetcodeUsername}
               onChange={(e) => setLeetcodeUsername(e.target.value)}
               required
+              className="input-field"
             />
           </div>
-          <div>
+          <div className="input-container">
             <label>Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="input-field"
             />
           </div>
-          <button type="submit">Sign Up</button>
+          <button className="button button:hover" type="submit">
+            Sign Up
+          </button>
         </form>
       </div>
     );
@@ -162,13 +171,15 @@ const LoginPage = () => {
   return isLogin ? (
     <>
       <LoginComponent />{" "}
-      <button onClick={() => setIsLogin(false)}> Sign up</button>
+      <button className="button button:hover" onClick={() => setIsLogin(false)}>
+        Sign up
+      </button>
     </>
   ) : (
     <>
       <SignUpComponent />
-      <button onClick={() => setIsLogin(true)}>
-        Already have an account? Login
+      <button className="button button:hover" onClick={() => setIsLogin(true)}>
+        Already have an account?
       </button>
     </>
   );
