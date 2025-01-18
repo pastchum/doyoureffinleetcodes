@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import leetcodeLogo from './icons/leetcode.png'
-improt profileLogo from './icons/profile.png'
+import profileLogo from './icons/profile.png'
 import './App.css'
 
 function App() {
@@ -12,6 +12,9 @@ function App() {
         <a href="https://leetcode.com" target="_blank">
           <img src={leetcodeLogo} className="logo" alt="LeetCode logo" />
         </a>
+      <a href="/dashboard" target="_self">
+        <img src={profileLogo} className="logo" alt="Profile logo" />
+      </a>
       </div>
       <h1>Leetcode NOW</h1>
       <div className="card">
