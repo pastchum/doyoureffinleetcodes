@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const addUserToDatabase = async (user) => {
@@ -25,20 +28,29 @@ const LoginPage = () => {
   };
 
   const getUser = async () => {
-    console.log("gettign user");
-    const { data, error } = await supabase.auth.getUser();
-    if (error) {
-      console.error("Error fetching user:", error);
-      return;
-    }
-    if (data && data.user) {
-      await addUserToDatabase(data.user);
-      navigate("/");
+    setLoading(true);
+    try {
+      console.log("gettign user");
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error("Error fetching user:", error);
+        return;
+      }
+      if (data && data.user) {
+        await addUserToDatabase(data.user);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    getUser();
+    console.log(user);
+    if (user == null) getUser();
+    else navigate("/");
   }, []);
 
   function LoginComponent() {
@@ -169,7 +181,9 @@ const LoginPage = () => {
     );
   }
 
-  return isLogin ? (
+  return loading ? (
+    <div>Getting User Data...</div>
+  ) : isLogin ? (
     <>
       <LoginComponent />{" "}
       <button className="button button:hover" onClick={() => setIsLogin(false)}>

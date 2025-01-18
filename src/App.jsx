@@ -28,8 +28,8 @@ function App() {
 
   //navigate to root upon start
   useEffect(() => {
-    if (user) navigate("/");
-    else navigate("/login");
+    navigate("/");
+    if (user == null) navigate("/login");
   }, []);
 
   return (
