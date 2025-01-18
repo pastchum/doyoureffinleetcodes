@@ -29,7 +29,7 @@ function App() {
     }
     setIsDashboardOpen((prev) => !prev);
   };
-  
+
   async function fetchUser() {
     try {
       const { data, error } = await supabase.auth.getUser();
@@ -51,7 +51,6 @@ function App() {
     fetchUser();
   }, []);
 
-
   return (
     <div>
       {/* Link to external LeetCode site */}
@@ -72,10 +71,11 @@ function App() {
         style={{ cursor: "pointer" }}
       />
 
-      {/* Link to Friends */}
+      {/* Link to Friends 
       <Link to="/friends" className="friends-link">
         Friends
       </Link>
+*/}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -94,7 +94,7 @@ function Home() {
     <>
       <h1>Leetcode NOW</h1>
       <div className="card">
-        <button onClick={() => fetchData()}>test</button>
+        <button onClick={() => fetchUser()}>test</button>
       </div>
       <p className="read-the-docs">Click on the LeetCode logo to learn more</p>
     </>
