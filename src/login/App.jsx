@@ -68,7 +68,7 @@ const LoginPage = () => {
   function SignUpComponent() {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
-    const [githubUsername, setGithubUsername] = useState("");
+    const [leetcodeUsername, setLeetcodeUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSignUp = async (e) => {
@@ -80,7 +80,7 @@ const LoginPage = () => {
         options: {
           data: {
             name: name,
-            githubUsername: githubUsername,
+            leetcodeUsername: leetcodeUsername,
           },
         },
       });
@@ -113,11 +113,11 @@ const LoginPage = () => {
             />
           </div>
           <div>
-            <label>Github Username</label>
+            <label>Leetcode Username</label>
             <input
               type="text"
-              value={githubUsername}
-              onChange={(e) => setGithubUsername(e.target.value)}
+              value={leetcodeUsername}
+              onChange={(e) => setLeetcodeUsername(e.target.value)}
               required
             />
           </div>
