@@ -92,7 +92,6 @@ const LoginPage = () => {
 
     const handleSignUp = async (e) => {
       e.preventDefault();
-
       console.log("Signing up: " + email + " " + name);
       const { error } = await supabase.auth.signUp({
 
