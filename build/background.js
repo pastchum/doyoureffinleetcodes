@@ -1,1 +1,0 @@
-import{s as o}from"./supabaseClient.js";chrome.runtime.onInstalled.addListener(async()=>{console.log("Extension installed. Fetching data from Supabase...");const{data:a,error:e}=await o.from("my_table").select("*");console.log("Data:",a,"Error:",e)});
