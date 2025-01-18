@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      // ...other options
+      "types": [
+        "chrome",        // <--- Add this
+        "vite/client"    // <--- If you're using Vite
+      ]
+    }
+  }
