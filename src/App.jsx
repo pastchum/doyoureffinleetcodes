@@ -98,7 +98,7 @@ function App() {
           Friends
         </Link>
       )}
-
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
