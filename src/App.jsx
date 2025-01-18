@@ -12,6 +12,7 @@ import "./App.css";
 import Dashboard from "./dashboard/App";
 import { supabase } from "./lib/supabaseClient";
 import Login from "./login/App";
+import FriendsPage from "./pages/FriendsPage";
 
 function App() {
   const [user, setUser] = useState(null);
