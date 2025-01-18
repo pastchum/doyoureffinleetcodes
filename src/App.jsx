@@ -22,12 +22,13 @@ function App() {
   // This toggles between showing the dashboard and going back to home
 
   async function fetchUser() {
+    console.log("fetchign");
     try {
       const { data, error } = await supabase.auth.getUser();
       if (error) {
         console.error(error);
       }
-      if (data?.user && data?.user !== user) {
+      if (data && data.user && data.user !== user) {
         setUser(data.user);
         console.log(data.user);
       } else if (!data.user) {
@@ -39,9 +40,10 @@ function App() {
   }
 
   //fetch user with each navigation
-  supabase.auth.onAuthStateChange(fetchUser);
-
-  useEffect(() => navigate("/login"), []);
+  useEffect(() => {
+    navigate("/");
+    fetchUser();
+  }, []);
 
   return (
     <div>

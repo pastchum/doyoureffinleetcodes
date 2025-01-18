@@ -7,17 +7,26 @@ import { supabase } from "../lib/supabaseClient";
 export default function Header({ navigate }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [user, setUser] = useState(null);
+
   async function fetchUser() {
+    console.log("fetchign user for header");
     try {
       const { data, error } = await supabase.auth.getUser();
-      if (data?.user) {
+      if (error) {
+        console.error(error);
+      }
+      if (data && data.user && data.user !== user) {
         setUser(data.user);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.error("Supabase fetch user error from header:", err);
     }
   }
-  supabase.auth.onAuthStateChange(fetchUser);
+
+  //fetch user with each navigation
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <>
@@ -54,7 +63,7 @@ export default function Header({ navigate }) {
             />
           </a>
           <Link
-            href="/"
+            to={`${user ? "/" : "login"}`}
             style={{
               display: "flex",
               alignItems: "center",
@@ -90,7 +99,7 @@ export default function Header({ navigate }) {
             top: 15,
           }}
         />
-        {user && showDropdown && (
+        {user != null && showDropdown && (
           <div
             style={{
               position: "absolute",
@@ -143,6 +152,7 @@ function ProfileDropDown({ user, navigate, setShowDropdown }) {
     } catch (error) {
       console.error("Error logging out:", error);
     } finally {
+      setUser(null);
     }
   };
 

@@ -25,6 +25,7 @@ const LoginPage = () => {
   };
 
   const getUser = async () => {
+    console.log("gettign user");
     const { data, error } = await supabase.auth.getUser();
     if (error) {
       console.error("Error fetching user:", error);
@@ -37,8 +38,6 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    console.log("loading dashboard");
-
     getUser();
   }, []);
 
