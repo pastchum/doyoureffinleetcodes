@@ -15,7 +15,7 @@ function App() {
   const navigate = useNavigate()
 
 
-  const handleProfileClick = () => {
+  const handleProfileClick = () => { 
     if (isDashboardOpen) {
       navigate('/') 
     } else {
