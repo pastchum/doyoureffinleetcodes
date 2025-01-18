@@ -104,7 +104,7 @@ const LoginPage = () => {
         options: {
           data: {
             name: name,
-            leetcode_username: leetcodeUsername,
+            leetcodeUsername: leetcodeUsername,
           },
         },
       });
