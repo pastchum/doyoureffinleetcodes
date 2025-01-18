@@ -28,6 +28,7 @@ const FriendsList = () => {
         >
           <span style={{ fontSize: "18px" }}>{friend.name}</span>
           <button
+            onClick={() => handleNudge(friend.friend_id)}
             style={{
               padding: "10px 15px",
               backgroundColor: "#ffcc00",
