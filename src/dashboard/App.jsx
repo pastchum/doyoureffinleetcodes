@@ -161,15 +161,9 @@ const Dashboard = () => {
         <div>
           <h3>Problems Solved by Difficulty</h3>
           <ul style={{ listStyle: "none", paddingLeft: 0 }}>
-            <li style={{ color: "green" }}>
-              Easy: {easySolved}
-            </li>
-            <li style={{ color: "orange" }}>
-              Medium: {mediumSolved}
-            </li>
-            <li style={{ color: "red" }}>
-              Hard: {hardSolved}
-            </li>
+            <li style={{ color: "green" }}>Easy: {easySolved}</li>
+            <li style={{ color: "orange" }}>Medium: {mediumSolved}</li>
+            <li style={{ color: "red" }}>Hard: {hardSolved}</li>
           </ul>
         </div>
 
@@ -184,6 +178,7 @@ const Dashboard = () => {
               ) : null
             )}
           </ul>
+        </div>
       </div>
     </div>
   );
