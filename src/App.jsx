@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import leetcodeLogo from './icons/leetcode.png'
+improt profileLogo from './icons/profile.png'
 import './App.css'
 
 function App() {
@@ -9,24 +9,18 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+        <a href="https://leetcode.com" target="_blank">
+          <img src={leetcodeLogo} className="logo" alt="LeetCode logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>Leetcode NOW</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        Click on the LeetCode logo to learn more
       </p>
     </>
   )
