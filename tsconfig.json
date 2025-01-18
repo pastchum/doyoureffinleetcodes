@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "compilerOptions": {
       // ...other options
       "types": [
@@ -9,3 +10,14 @@
       "lib": ["ES2015", "DOM"]
     }
   }
+=======
+  "compilerOptions": {
+    // ...other options
+    "types": [
+      "chrome", // <--- Add this
+      "vite/client" // <--- If you're using Vite
+    ],
+    "esModuleInterop": true
+  }
+}
+>>>>>>> 2ecf6bdec1658f50d88139f5cdc7c2a98bdc2589
