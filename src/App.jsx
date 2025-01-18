@@ -19,6 +19,33 @@ function App() {
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   const navigate = useNavigate();
 
+  const requestNotificationPermission = () => {
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        alert("Notifications enabled! You will receive reminders.");
+      } else if (permission === "denied") {
+        alert("Notifications are blocked. You can enable them in your browser settings.");
+      } else {
+        alert("Notification permission request was dismissed.");
+      }
+    });
+  };
+
+  useEffect(() => {
+    // Set up interval to send notification every 12 hours
+    const intervalId = setInterval(() => {
+      if (Notification.permission === "granted") {
+        new Notification("Reminder", {
+          body: "Don't forget to complete your LeetCode assignments!",
+          icon: leetcodeLogo,
+        });
+      }
+    }, 12 * 60 * 60 * 1000); // 12 hours in milliseconds
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
   // This toggles between showing the dashboard and going back to home
   const handleProfileClick = () => {
     if (!isDashboardOpen) {
@@ -68,6 +95,11 @@ function App() {
 
   return (
     <div>
+      {/* Button to explicitly request notification permission */}
+      <button className="notification-button" onClick={requestNotificationPermission}>
+        Enable Notifications
+      </button>
+
       {/* Link to external LeetCode site */}
       <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer">
         <img
@@ -76,6 +108,7 @@ function App() {
           alt="LeetCode logo"
         />
       </a>
+
       {/* Profile icon that toggles the dashboard */}
       <img
         src={profileLogo}
