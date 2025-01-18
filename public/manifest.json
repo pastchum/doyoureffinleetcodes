@@ -9,6 +9,20 @@
     "permissions": [
         "identity",
         "tabs",
-        "storage" 
-      ]
+        "storage",
+        "declarativeNetRequest"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules1.json"
+      }
+    ],
+    "default_rule_resources": ["ruleset_1"]
+    }
   }

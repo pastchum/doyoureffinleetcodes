@@ -5,6 +5,7 @@
       "chrome", // <--- Add this
       "vite/client" // <--- If you're using Vite
     ],
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "lib": ["ES2015", "DOM"]
+  },
 }
