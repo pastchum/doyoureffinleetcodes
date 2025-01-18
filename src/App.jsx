@@ -48,6 +48,20 @@ function App() {
     }
   }
 
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("Error during logout:", error);
+      } else {
+        setUser(null);
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+
   useEffect(() => {
     fetchUser();
   }, []);
@@ -62,7 +76,6 @@ function App() {
           alt="LeetCode logo"
         />
       </a>
-
       {/* Profile icon that toggles the dashboard */}
       <img
         src={profileLogo}
@@ -72,11 +85,19 @@ function App() {
         style={{ cursor: "pointer" }}
       />
 
-      {/* Link to Friends 
-      <Link to="/friends" className="friends-link">
-        Friends
-      </Link>
-*/}
+      {/* Logout button */}
+      {user && (
+        <button className="logout-button" onClick={handleLogout}>
+          Logout
+        </button>
+      )}
+
+      {/* Link to Friends */}
+      {user && (
+        <Link to="/friends" className="friends-link">
+          Friends
+        </Link>
+      )}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -95,7 +116,9 @@ function Home() {
     <>
       <h1>Leetcode NOW</h1>
       <div className="card">
-        <button onClick={() => fetchUser()}>test</button>
+        <button onClick={() => setCount((count) => count + 1)}>
+          Count is {count}
+        </button>
       </div>
       <p className="read-the-docs">Click on the LeetCode logo to learn more</p>
     </>
