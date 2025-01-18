@@ -29,6 +29,7 @@ function App() {
     }
     setIsDashboardOpen((prev) => !prev);
   };
+  
   async function fetchUser() {
     try {
       const { data, error } = await supabase.auth.getUser();
@@ -50,6 +51,7 @@ function App() {
     fetchUser();
   }, []);
 
+
   return (
     <div>
       {/* Link to external LeetCode site */}
@@ -70,12 +72,16 @@ function App() {
         style={{ cursor: "pointer" }}
       />
 
+      {/* Link to Friends */}
+      <Link to="/friends" className="friends-link">
+        Friends
+      </Link>
+
       <Routes>
-        <>
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/login" element={<Login />} />
-        </>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/friends" element={<FriendsPage />} />
       </Routes>
     </div>
   );

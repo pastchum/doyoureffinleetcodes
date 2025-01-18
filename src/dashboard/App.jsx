@@ -27,6 +27,7 @@ const Dashboard = () => {
     fetchUser();
   }, []);
 
+
   return user ? (
     <div>
       <h1>Dashboard</h1>
