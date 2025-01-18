@@ -1,6 +1,7 @@
 import React from "react";
 import FriendsList from "../components/Friends/FriendsList";
 import { Link, useNavigate } from "react-router-dom";
+import FriendsNotification from "../components/Friends/FriendsNotification";
 
 const FriendsPage = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const FriendsPage = () => {
         Add Friend
       </button>
       <FriendsList />
+      <FriendsNotification />
     </div>
   );
 };

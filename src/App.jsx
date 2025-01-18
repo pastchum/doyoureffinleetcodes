@@ -77,34 +77,39 @@ function App() {
           alt="LeetCode logo"
         />
       </a>
-      {/* Profile icon that toggles the dashboard */}
-      <img
-        src={profileLogo}
-        className="logo profile-logo"
-        alt="Profile logo"
-        onClick={handleProfileClick}
-        style={{ cursor: "pointer" }}
-      />
 
-      {/* Logout button */}
+      {user && (
+        <>
+          {/* Profile icon that toggles the dashboard */}
+          <img
+            src={profileLogo}
+            className="logo profile-logo"
+            alt="Profile logo"
+            onClick={handleProfileClick}
+            style={{ cursor: "pointer" }}
+          />
 
-      <button
-        className="logout-button"
-        onClick={handleLogout}
-        style={{ cursor: "pointer", marginRight: "5px" }}
-      >
-        Logout
-      </button>
+          {/* Logout button */}
 
-      {/* Link to Friends */}
+          <button
+            className="logout-button"
+            onClick={handleLogout}
+            style={{ cursor: "pointer", marginRight: "5px" }}
+          >
+            Logout
+          </button>
 
-      <button
-        className="logout-button"
-        onClick={() => navigate("/friends")}
-        style={{ cursor: "pointer", marginLeft: "5px" }}
-      >
-        Friends
-      </button>
+          {/* Link to Friends */}
+
+          <button
+            className="logout-button"
+            onClick={() => navigate("/friends")}
+            style={{ cursor: "pointer", marginLeft: "5px" }}
+          >
+            Friends
+          </button>
+        </>
+      )}
 
       <Routes>
         <Route path="/" element={<Home />} />

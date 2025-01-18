@@ -1,18 +1,18 @@
-import { supabase } from "../../supabaseClient";
+import { supabase } from "../../lib/supabaseClient";
 
 export const sendNudge = async (receiverId) => {
   const {
     data: { user },
-    error,
+    error: authError,
   } = await supabase.auth.getUser();
 
-  const { data, error } = await supabase.from("nudges").insert({
+  const { data, error: nudgeError } = await supabase.from("nudges").insert({
     sender_id: user.id,
     receiver_id: receiverId,
   });
 
-  if (error) {
-    console.error("Error sending nudge:", error.message);
+  if (nudgeError) {
+    console.error("Error sending nudge:", nudgeError.message);
   }
 
   return data;
