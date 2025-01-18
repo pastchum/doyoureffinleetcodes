@@ -69,9 +69,7 @@ function Home() {
     <>
       <h1>Leetcode NOW</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <button onClick={() => fetchData()}>test</button>
       </div>
       <p className="read-the-docs">Click on the LeetCode logo to learn more</p>
     </>
