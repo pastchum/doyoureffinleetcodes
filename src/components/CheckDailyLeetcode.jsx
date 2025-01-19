@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchSubmissions } from "../fetch/fetchFunctions";
+import { fetchSubmissions, fetchUserData } from "../fetch/fetchFunctions";
 import { useAuth } from "../context/AuthContext";
 import SetReminder from "./notifications/SetReminder";
 import leetcodeLogo from "../icons/leetcode.png";
@@ -20,17 +20,17 @@ export default function CheckDailyLeetcode() {
       }
       setLoading(true);
       try {
-        const recentSubmissions = await fetchSubmissions(
-          user?.leetcodeUsername
-        );
+        console.log(user);
+
+        const data = await fetchUserData(user?.user_metadata?.leetcodeUsername);
+        const recentSubmissions = data.recentSubmissions;
         //account for us timezone
-        const time = new Date().toLocaleString("en-US", {
+        const timeShift = new Date().toLocaleString("en-US", {
           timeZone: "America/Los_Angeles",
         });
-        const now = new Date(time);
-        const dayStart =
-          new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() /
-          1000;
+        const offset =
+          new Date(timeShift).getTime() / 1000 - new Date().getTime() / 1000;
+        const dayStart = Math.floor(Date.now() / 1000) + offset;
         const dayEnd = dayStart + 24 * 60 * 60;
         console.log(dayStart);
         console.log(dayEnd);
@@ -39,7 +39,9 @@ export default function CheckDailyLeetcode() {
           const submissionTime = parseInt(submission.timestamp);
           console.log(submissionTime);
           return (
-            submissionTime == dayEnd && submission.statusDisplay === "Accepted"
+            submissionTime <= dayEnd &&
+            submissionTime >= dayStart &&
+            submission.statusDisplay === "Accepted"
           );
         });
         setDailyDone(dailySubmission);
