@@ -28,7 +28,6 @@ export default defineConfig({
         // "main" is your index.html (the extension popup or UI entry point)
         main: "./index.html",
         // "background" is your background script entry in TypeScript.
-        background: resolve(__dirname, "src/background.js"),
       },
       output: {
         // The filenames for different entry points.
