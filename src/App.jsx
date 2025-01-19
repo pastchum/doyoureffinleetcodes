@@ -23,7 +23,6 @@ function App() {
   useEffect(() => {
     if (user == null) {
       navigate("/login");
-
     }
   }, [user]);
 
@@ -31,52 +30,6 @@ function App() {
   useEffect(() => {
     navigate("/");
     if (user == null) navigate("/login");
-  }, []);
-  
-  const requestNotificationPermission = () => {
-    Notification.requestPermission().then((permission) => {
-      if (permission === "granted") {
-        alert("Notifications enabled! You will receive reminders.");
-      } else if (permission === "denied") {
-        alert("Notifications are blocked. You can enable them in your browser settings.");
-      } else {
-        alert("Notification permission request was dismissed.");
-      }
-    });
-  };
-
-  useEffect(() => {
-    // Set up interval to send notification every 12 hours
-    // const intervalId = setInterval(() => {
-    //   if (Notification.permission === "granted") {
-    //     new Notification("Reminder", {
-    //       body: "Don't forget to complete your LeetCode assignments!",
-    //       icon: leetcodeLogo,
-    //     });
-    //   }
-    // }, 12 * 60 * 60 * 1000); // 12 hours in milliseconds
-
-    // Function to generate notifications at specific times
-    const generateNotifications = () => {
-      const now = new Date();
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-
-      console.log(`Current time: ${hours}:${minutes}`);
-
-      if ((hours === 1 && minutes === 47)) {
-      if (Notification.permission === "granted") {
-        new Notification("Scheduled Reminder", {
-        body: "Do u wanna stay jobless?",
-        icon: leetcodeLogo,
-        });
-      }
-      }
-    };
-
-    const notificationIntervalId = setInterval(generateNotifications, 60 * 1000); // 1 minute in milliseconds
-    return () => clearInterval(notificationIntervalId);
-    return () => clearInterval(intervalId);
   }, []);
 
   return (

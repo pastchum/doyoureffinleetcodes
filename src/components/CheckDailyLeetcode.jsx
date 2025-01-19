@@ -1,7 +1,7 @@
-import { supabase } from "../lib/supabaseClient";
 import { useState, useEffect } from "react";
 import { fetchSubmissions } from "../fetch/fetchFunctions";
 import { useAuth } from "../context/AuthContext";
+import SetReminder from "./notifications/SetReminder";
 
 export default function CheckDailyLeetcode() {
   const { user } = useAuth();
@@ -89,6 +89,7 @@ export default function CheckDailyLeetcode() {
                 <h3 style={{ color: "#AAA", fontSize: "0.5rem", margin: "0" }}>
                   You ain't getting a job at this rate
                 </h3>
+                <SetReminder />
               </>
             )}
           </div>
