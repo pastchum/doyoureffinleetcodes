@@ -29,7 +29,7 @@ const Timer = () => {
   }, []);
 
   const startTimer = () => {
-    const totalHours = minutes + hours * 60;
+    const totalMinutes = minutes + hours * 60;
     if (totalMinutes > 0) {
       chrome.alarms.create("timerAlarm", {
         delayInMinutes: totalMinutes,
