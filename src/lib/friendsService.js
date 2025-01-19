@@ -1,9 +1,25 @@
 import { supabase } from "./supabaseClient";
 
 export const fetchFriends = async () => {
+  // Fetch the authenticated user
+  const { data: authData, error: authError } = await supabase.auth.getUser();
+
+  if (authError) {
+    console.error("Auth error:", authError.message);
+    return [];
+  }
+
+  const user = authData?.user;
+
+  if (!user) {
+    console.error("No authenticated user found.");
+    return [];
+  }
+
   const { data, error } = await supabase
     .from("friends")
-    .select("friend_id, users!friends_friend_id_fkey(name)");
+    .select("friend_id, users!friends_friend_id_fkey(name)")
+    .eq("user_id", user.id);
 
   if (error) {
     console.error("Error fetching friends:", error.message);
