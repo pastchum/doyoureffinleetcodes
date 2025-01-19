@@ -23,16 +23,32 @@ export default function CheckDailyLeetcode() {
         const recentSubmissions = await fetchSubmissions(
           user?.leetcodeUsername
         );
-        const today = Math.floor(new Date().getTime() / 1000);
-        const dailySubmission = recentSubmissions.some(
-          (submission) =>
-            submission.timestamp === today &&
-            submission.statusDisplay == "Accepted"
-        );
+        //account for us timezone
+        const time = new Date().toLocaleString("en-US", {
+          timeZone: "America/Los_Angeles",
+        });
+        const now = new Date(time);
+        const dayStart =
+          new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() /
+          1000;
+        const dayEnd = dayStart + 24 * 60 * 60;
+        console.log(dayStart);
+        console.log(dayEnd);
+        const dailySubmission = recentSubmissions.some((submission) => {
+          console.log(submission);
+          const submissionTime = parseInt(submission.timestamp);
+          console.log(submissionTime);
+          return (
+            submissionTime == dayEnd && submission.statusDisplay === "Accepted"
+          );
+        });
         setDailyDone(dailySubmission);
         if (dailyDone) {
           if (chrome.alarms.get("timerAlarm") != null) {
             chrome.alarms.clear("timerAlarm");
+            chrome.runtime.sendMessage({
+              type: "STOP_TIMER",
+            });
             new Notification("Good Job", {
               body: "Slightly closer to getting employed",
               icon: leetcodeLogo,

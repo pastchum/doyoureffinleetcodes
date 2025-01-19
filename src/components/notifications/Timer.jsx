@@ -30,7 +30,12 @@ const Timer = () => {
 
   const startTimer = () => {
     const totalMinutes = minutes + hours * 60;
+
     if (totalMinutes > 0) {
+      chrome.runtime.sendMessage({
+        type: "START_TIMER",
+        minutes: totalMinutes,
+      });
       chrome.alarms.create("timerAlarm", {
         delayInMinutes: totalMinutes,
       });
@@ -40,6 +45,9 @@ const Timer = () => {
 
   const stopTimer = () => {
     chrome.alarms.clear("timerAlarm");
+    chrome.runtime.sendMessage({
+      type: "STOP_TIMER",
+    });
     new Notification("Really?", {
       body: "You gonna not finish your leetcodes? Guess you really love being broke",
       icon: leetcodeLogo,
