@@ -28,7 +28,9 @@ const AddFriend = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          style={{ marginBottom: "10px" }} // Add gap here
         />
+        <br />
         <button type="submit" className="add-friend-button">
           Add
         </button>
