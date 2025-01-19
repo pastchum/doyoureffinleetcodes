@@ -5,7 +5,7 @@ import leetcodeLogo from "../../icons/leetcode.png";
 
 const Timer = () => {
   const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
+  const [hours, setHours] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Timer = () => {
   }, []);
 
   const startTimer = () => {
-    const totalMinutes = minutes + seconds / 60;
+    const totalHours = minutes + hours * 60;
     if (totalMinutes > 0) {
       chrome.alarms.create("timerAlarm", {
         delayInMinutes: totalMinutes,
