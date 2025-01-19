@@ -7,17 +7,25 @@ const Timer = () => {
   const [minutes, setMinutes] = useState(0);
   const [hours, setHours] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [totalMinutes, setTotalMinutes] = useState(0);
+
+  useEffect(() => {
+    setTotalMinutes(hours * 60 + minutes);
+  }, [minutes, hours]);
 
   useEffect(() => {
     // Check if chrome.alarms is available
     if (chrome.alarms) {
       chrome.alarms.onAlarm.addListener((alarm) => {
-        if (alarm.name === "timerAlarm") {
-          // Show notification when timer is done
-          if (chrome.notifications) {
-            return getRandomNotification();
+        function sendNotification() {
+          if (alarm.name === "timerAlarm") {
+            // Show notification when timer is done
+            if (chrome.notifications) {
+              return getRandomNotification();
+            }
           }
         }
+        setInterval(sendNotification, totalMinutes * 1000);
       });
     }
 
@@ -29,8 +37,6 @@ const Timer = () => {
   }, []);
 
   const startTimer = () => {
-    const totalMinutes = minutes + hours * 60;
-
     if (totalMinutes > 0) {
       chrome.runtime.sendMessage({
         type: "START_TIMER",
