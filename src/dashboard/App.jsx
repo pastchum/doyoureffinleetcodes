@@ -7,8 +7,6 @@ import { useAuth } from "../context/AuthContext";
 const TOTAL_QUESTIONS = 3313;
 
 function getDerogatoryMessage(percentage) {
-  // Each bracket is 10%. For example, 0-9 => 0 bracket, 10-19 => 10 bracket, etc.
-  // We'll round down by dividing by 10 and flooring
   const bracket = Math.floor(percentage / 10) * 10;
   switch (bracket) {
     case 0:
@@ -34,7 +32,6 @@ function getDerogatoryMessage(percentage) {
     case 100:
       return "Wow, 100%. Finally. About time!";
     default:
-      // In case it's > 100 or negative for some reason
       if (percentage > 100) {
         return "_You have some insane over-completion, but you probably cheated!_";
       }
@@ -47,19 +44,16 @@ const Dashboard = () => {
 
   const [error, setError] = useState(null);
   const { user } = useAuth();
-
-  // We'll store all LeetCode data (including totalSolved, etc.) in one object:
   const [leetcodeData, setLeetcodeData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // 1) Fetch data from your LeetCode API
+  // Function to fetch LeetCode data
   async function fetchLeetCodeData(username) {
     if (!username) return;
     try {
       setLoading(true);
       setError(null);
-      // This should return the new structure with totalSolved, recentSubmissions, etc.
-      const data = await fetchUserData(username);
+      const data = await fetchUserData(username); // Fetch user data
       setLeetcodeData(data);
     } catch (err) {
       console.error("Failed to fetch LeetCode data:", err);
@@ -70,28 +64,30 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    // user.user_metadata.leetcodeUsername => the LC handle
     const username = user?.user_metadata?.leetcodeUsername;
     if (username) {
       fetchLeetCodeData(username);
     }
   }, [user]);
 
+  // Refresh function to re-fetch data
+  const handleRefresh = () => {
+    const username = user?.user_metadata?.leetcodeUsername;
+    if (username) {
+      fetchLeetCodeData(username);
+    }
+  };
+
   if (!user) {
     return <div>No user logged in</div>;
   }
 
-  // Extract data from leetcodeData
   const totalSolved = leetcodeData?.totalSolved ?? 0;
   const recentSubmissions = leetcodeData?.recentSubmissions ?? [];
   const easySolved = leetcodeData?.easySolved ?? 0;
   const mediumSolved = leetcodeData?.mediumSolved ?? 0;
   const hardSolved = leetcodeData?.hardSolved ?? 0;
-
-  // Calculate the progress percentage
   const progressPercentage = Math.round((totalSolved / TOTAL_QUESTIONS) * 100);
-
-  // Get the relevant insult message
   const message = getDerogatoryMessage(progressPercentage);
 
   return (
@@ -106,13 +102,12 @@ const Dashboard = () => {
           {user.user_metadata?.leetcodeUsername || "(No Username)"}
         </h2>
 
-        {/* Show total solved out of 3313 */}
         <p>
           Total Solved: {totalSolved} / {TOTAL_QUESTIONS} ({progressPercentage}
           %)
         </p>
 
-        {/* The progress bar */}
+        {/* Progress Bar */}
         <div
           style={{
             width: "400px",
@@ -133,7 +128,6 @@ const Dashboard = () => {
           />
         </div>
 
-        {/* Derogatory message in italics */}
         <p style={{ fontStyle: "italic" }}>{message}</p>
 
         <div>
@@ -157,17 +151,25 @@ const Dashboard = () => {
             )}
           </ul>
         </div>
+
+        {/* Refresh Button */}
+        <button
+          onClick={handleRefresh}
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            marginTop: "10px",
+          }}
+        >
+          Refresh Data
+        </button>
       </div>
     </div>
   );
 };
 
-const App = () => {
-  return (
-    <div>
-      <Dashboard />
-    </div>
-  );
-};
-
-export default App;
+export default Dashboard;
