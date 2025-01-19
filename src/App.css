@@ -143,11 +143,32 @@ body {
 
 .daily-check-container {
   margin-top: 20;
-  border: 1px solid #AAA;
-  background-color: #333;
+  border: 1px solid #333;
+  background-color: #CCC;
   padding: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   gap:10px;
   margin: 2;
+  color: #333;
+}
+
+.button-timer {
+  width: 50%;
+  background: #e8a950;
+  border: #333;
+  border-radius: 5px;
+  margin: 10px;
+  color: #333;
+}
+
+.button-timer:hover {
+  width: 50%;
+  scale: 105%;
+  background: #e8a950;
+  border: #333;
+  border-radius: 5px;
+  margin: 10px;
+  color: #333;
+  transition: 25ms;
 }

@@ -1,7 +1,8 @@
-import { supabase } from "../lib/supabaseClient";
 import { useState, useEffect } from "react";
 import { fetchSubmissions } from "../fetch/fetchFunctions";
 import { useAuth } from "../context/AuthContext";
+import SetReminder from "./notifications/SetReminder";
+import leetcodeLogo from "../icons/leetcode.png";
 
 export default function CheckDailyLeetcode() {
   const { user } = useAuth();
@@ -29,6 +30,15 @@ export default function CheckDailyLeetcode() {
             submission.statusDisplay == "Accepted"
         );
         setDailyDone(dailySubmission);
+        if (dailyDone) {
+          if (chrome.alarms.get("timerAlarm") != null) {
+            chrome.alarms.clear("timerAlarm");
+            new Notification("Good Job", {
+              body: "Slightly closer to getting employed",
+              icon: leetcodeLogo,
+            });
+          }
+        }
       } catch (error) {
         console.log(error);
       } finally {
@@ -83,12 +93,20 @@ export default function CheckDailyLeetcode() {
               </>
             ) : (
               <>
-                <h1 style={{ color: "red", fontSize: "3rem", margin: "0" }}>
+                <h1
+                  style={{
+                    color: "red",
+                    fontSize: "3rem",
+                    margin: "0",
+                    fontWeight: "bold",
+                  }}
+                >
                   NOT DONE
                 </h1>
-                <h3 style={{ color: "#AAA", fontSize: "0.5rem", margin: "0" }}>
+                <h3 style={{ color: "#333", fontSize: "0.5rem", margin: "0" }}>
                   You ain't getting a job at this rate
                 </h3>
+                <SetReminder />
               </>
             )}
           </div>
