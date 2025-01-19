@@ -39,16 +39,6 @@ export const requestNotificationPermission = () => {
 };
 
 export const notificationTest = () => {
-  // Set up interval to send notification every 12 hours
-  // const intervalId = setInterval(() => {
-  //   if (Notification.permission === "granted") {
-  //     new Notification("Reminder", {
-  //       body: "Don't forget to complete your LeetCode assignments!",
-  //       icon: leetcodeLogo,
-  //     });
-  //   }
-  // }, 12 * 60 * 60 * 1000); // 12 hours in milliseconds
-
   // Function to generate notifications at specific times
   const generateNotifications = () => {
     const now = new Date();
