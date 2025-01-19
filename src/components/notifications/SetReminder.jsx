@@ -17,7 +17,7 @@ export default function SetReminder() {
     <div>
       {!notifsEnabled ? (
         <button
-          className="button"
+          className="button-timer"
           onClick={() => {
             requestNotificationPermission();
             setNotifsEnabled(true);
@@ -27,7 +27,7 @@ export default function SetReminder() {
         </button>
       ) : (
         <div>
-          <button className="button" onClick={handlePress}>
+          <button className="button-timer" onClick={handlePress}>
             Add timer
           </button>
           {showTimerPicker && <Timer />}

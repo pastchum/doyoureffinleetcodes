@@ -54,19 +54,20 @@ const Timer = () => {
         <input
           type="number"
           min="0"
-          value={minutes}
-          onChange={(e) => setMinutes(parseInt(e.target.value) || 0)}
+          max="23"
+          value={hours}
+          onChange={(e) => setHours(parseInt(e.target.value) || 0)}
           disabled={isActive}
-          placeholder="Minutes"
+          placeholder="Hours"
         />
         <input
           type="number"
           min="0"
           max="59"
-          value={seconds}
-          onChange={(e) => setSeconds(parseInt(e.target.value) || 0)}
+          value={minutes}
+          onChange={(e) => setMinutes(parseInt(e.target.value) || 0)}
           disabled={isActive}
-          placeholder="Seconds"
+          placeholder="minutes"
         />
       </div>
       <div className="timer-controls">
