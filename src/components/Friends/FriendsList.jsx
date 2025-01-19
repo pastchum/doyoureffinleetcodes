@@ -30,7 +30,7 @@ const FriendsList = () => {
           <button
             onClick={() => handleNudge(friend.friend_id)}
             style={{
-              padding: "10px 15px",
+              marginLeft: "10px",
               backgroundColor: "#ffcc00",
               border: "none",
               borderRadius: "5px",
