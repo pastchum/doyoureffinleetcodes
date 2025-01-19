@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchSubmissions } from "../fetch/fetchFunctions";
+import { fetchSubmissions, fetchUserData } from "../fetch/fetchFunctions";
 import { useAuth } from "../context/AuthContext";
 import SetReminder from "./notifications/SetReminder";
 import leetcodeLogo from "../icons/leetcode.png";
@@ -20,19 +20,37 @@ export default function CheckDailyLeetcode() {
       }
       setLoading(true);
       try {
-        const recentSubmissions = await fetchSubmissions(
-          user?.leetcodeUsername
-        );
-        const today = Math.floor(new Date().getTime() / 1000);
-        const dailySubmission = recentSubmissions.some(
-          (submission) =>
-            submission.timestamp === today &&
-            submission.statusDisplay == "Accepted"
-        );
+        console.log(user);
+
+        const data = await fetchUserData(user?.user_metadata?.leetcodeUsername);
+        const recentSubmissions = data.recentSubmissions;
+        //account for us timezone
+        const timeShift = new Date().toLocaleString("en-US", {
+          timeZone: "America/Los_Angeles",
+        });
+        const offset =
+          new Date(timeShift).getTime() / 1000 - new Date().getTime() / 1000;
+        const dayStart = Math.floor(Date.now() / 1000) + offset;
+        const dayEnd = dayStart + 24 * 60 * 60;
+        console.log(dayStart);
+        console.log(dayEnd);
+        const dailySubmission = recentSubmissions.some((submission) => {
+          console.log(submission);
+          const submissionTime = parseInt(submission.timestamp);
+          console.log(submissionTime);
+          return (
+            submissionTime <= dayEnd &&
+            submissionTime >= dayStart &&
+            submission.statusDisplay === "Accepted"
+          );
+        });
         setDailyDone(dailySubmission);
         if (dailyDone) {
           if (chrome.alarms.get("timerAlarm") != null) {
             chrome.alarms.clear("timerAlarm");
+            chrome.runtime.sendMessage({
+              type: "STOP_TIMER",
+            });
             new Notification("Good Job", {
               body: "Slightly closer to getting employed",
               icon: leetcodeLogo,

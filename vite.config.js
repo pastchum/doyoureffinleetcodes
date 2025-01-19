@@ -17,7 +17,7 @@ export default defineConfig({
           // Copy the DNR rules file from "public/" to the build root.
           src: "public/rules1.json",
           dest: ".",
-        }
+        },
       ],
     }),
   ],
@@ -28,14 +28,14 @@ export default defineConfig({
         // "main" is your index.html (the extension popup or UI entry point)
         main: "./index.html",
         // "background" is your background script entry in TypeScript.
-        background: resolve(__dirname, "src/background.ts"),
+        background: resolve(__dirname, "src/background.js"),
       },
       output: {
-        // The filenames for different entry points. 
+        // The filenames for different entry points.
         // If the chunk is named "background", the output becomes "background.js".
         entryFileNames: "[name].js",
         chunkFileNames: "[name].js",
-        assetFileNames: "[name].[ext]"
+        assetFileNames: "[name].[ext]",
       },
     },
   },

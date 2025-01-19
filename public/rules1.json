@@ -1,17 +1,3 @@
 [
-    {
-      "id": 1,
-      "priority": 1,
-      "action": {
-        "type": "redirect",
-        "redirect": {
-          "url": "https://leetcode.com"
-        }
-      },
-      "condition": {
-        "urlFilter": "*",
-        "resourceTypes": ["main_frame"],
-        "excludedDomains": ["leetcode.com"]
-      }
-    }
+
 ]
