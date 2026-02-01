@@ -1,11 +1,16 @@
 {
+  "include": ["src/**/*"],
   "compilerOptions": {
-    // ...other options
-    "types": [
-      "chrome", // <--- Add this
-      "vite/client" // <--- If you're using Vite
-    ],
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
     "esModuleInterop": true,
-    "lib": ["ES2015", "DOM"]
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "types": ["chrome", "vite/client"]
   },
 }

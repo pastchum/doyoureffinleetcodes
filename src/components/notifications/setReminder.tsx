@@ -3,7 +3,7 @@ import {
   notificationTest,
   requestNotificationPermission,
 } from "./notifications";
-import Timer from "./Timer";
+import Timer from "./timer";
 
 export default function SetReminder() {
   const [notifsEnabled, setNotifsEnabled] = useState(false);

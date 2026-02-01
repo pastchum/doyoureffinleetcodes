@@ -7,13 +7,13 @@ import {
   useNavigate,
 } from "react-router-dom";
 import "./App.css";
-import Dashboard from "./dashboard/App";
+import Dashboard from "./dashboard/app";
 import Login from "./login/App";
-import FriendsPage from "./pages/FriendsPage";
-import AddFriend from "./components/Friends/AddFriend";
-import Header from "./components/Header";
-import CheckDailyLeetcode from "./components/CheckDailyLeetcode";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import FriendsPage from "./pages/friendsPage";
+import AddFriend from "./components/Friends/addFriend";
+import Header from "./components/header";
+import CheckDailyLeetcode from "./components/checkDailyLeetcode";
+import { AuthProvider, useAuth } from "./context/authContext";
 
 function App() {
   const { user } = useAuth();

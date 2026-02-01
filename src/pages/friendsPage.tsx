@@ -1,7 +1,7 @@
 import React from "react";
-import FriendsList from "../components/Friends/FriendsList";
+import FriendsList from "../components/Friends/friendsList";
 import { Link, useNavigate } from "react-router-dom";
-import FriendsNotification from "../components/Friends/FriendsNotification";
+import FriendsNotification from "../components/Friends/friendsNotification";
 
 const FriendsPage = () => {
   const navigate = useNavigate();

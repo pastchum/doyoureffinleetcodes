@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchSubmissions, fetchUserData } from "../fetch/fetchFunctions";
-import { useAuth } from "../context/AuthContext";
-import SetReminder from "./notifications/SetReminder";
+import { useAuth } from "../context/authContext";
+import SetReminder from "./notifications/setReminder";
 import leetcodeLogo from "../icons/leetcode.png";
 
 export default function CheckDailyLeetcode() {
@@ -45,6 +45,41 @@ export default function CheckDailyLeetcode() {
           );
         });
         setDailyDone(dailySubmission);
+        if (dailySubmission) {
+          // Enable rule
+          chrome.declarativeNetRequest.updateDynamicRules({
+            removeRuleIds: [1],
+            addRules: [
+              {
+                id: 1,
+                priority: 1,
+                action: {
+                  type: "redirect",
+                  redirect: {
+                    url: "https://leetcode.com",
+                  },
+                },
+                condition: {
+                  urlFilter: "*",
+                  resourceTypes: ["main_frame"],
+                  excludedDomains: [
+                    "leetcode.com",
+                    "https://github.com/login/",
+                    "https://accounts.google.com/o/oauth2",
+                    "https://www.facebook.com/login.php",
+                    "https://www.linkedin.com/uas/login",
+                  ],
+                },
+              },
+            ],
+          });
+        } else {
+          // Disable rule
+          chrome.declarativeNetRequest.updateDynamicRules({
+            removeRuleIds: [1],
+            addRules: [],
+          });
+        }
         if (dailyDone) {
           if (chrome.alarms.get("timerAlarm") != null) {
             chrome.alarms.clear("timerAlarm");

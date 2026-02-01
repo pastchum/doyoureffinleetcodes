@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchFriends } from "../../lib/friendsService";
-import { sendNudge } from "./SendNudge";
+import { sendNudge } from "./sendNudge";
 
 const FriendsList = () => {
   const [friends, setFriends] = useState([]);

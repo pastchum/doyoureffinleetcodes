@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import Reacte, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { fetchUserData } from "../fetch/fetchFunctions";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/authContext";
 
 const TOTAL_QUESTIONS = 3313;
 
@@ -39,23 +39,23 @@ function getDerogatoryMessage(percentage) {
   }
 }
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   const navigate = useNavigate();
 
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
-  const [leetcodeData, setLeetcodeData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [leetcodeData, setLeetcodeData] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // Function to fetch LeetCode data
-  async function fetchLeetCodeData(username) {
+  async function fetchLeetCodeData(username: string) {
     if (!username) return;
     try {
       setLoading(true);
       setError(null);
       const data = await fetchUserData(username); // Fetch user data
       setLeetcodeData(data);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Failed to fetch LeetCode data:", err);
       setError(err.message || "Failed to fetch LeetCode data");
     } finally {
@@ -147,7 +147,7 @@ const Dashboard = () => {
                 <li key={idx} className="recent-submission-container">
                   <strong>{sub.title}</strong> – {sub.statusDisplay}
                 </li>
-              ) : null
+              ) : null,
             )}
           </ul>
         </div>
