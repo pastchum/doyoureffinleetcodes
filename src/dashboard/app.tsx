@@ -1,4 +1,4 @@
-import Reacte, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { fetchUserData } from "../fetch/fetchFunctions";
@@ -6,7 +6,7 @@ import { useAuth } from "../context/authContext";
 
 const TOTAL_QUESTIONS = 3313;
 
-function getDerogatoryMessage(percentage) {
+function getDerogatoryMessage(percentage: number): string {
   const bracket = Math.floor(percentage / 10) * 10;
   switch (bracket) {
     case 0:
@@ -142,7 +142,7 @@ const Dashboard: React.FC = () => {
         <div className="recent-submissions-container">
           <h2>Recent Submissions:</h2>
           <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
-            {recentSubmissions.map((sub, idx) =>
+            {recentSubmissions.map((sub: any, idx: number) =>
               idx < 5 ? (
                 <li key={idx} className="recent-submission-container">
                   <strong>{sub.title}</strong> – {sub.statusDisplay}

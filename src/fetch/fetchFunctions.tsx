@@ -1,6 +1,6 @@
 const API_URL = "https://leetcode-api-faisalshohag.vercel.app";
 
-export async function fetchSubmissions(username) {
+export async function fetchSubmissions(username: string) {
   try {
     const response = await fetch(`${API_URL}/${username}`);
 
@@ -9,7 +9,7 @@ export async function fetchSubmissions(username) {
       const submissions = data.recentSubmissions;
       if (!submissions) {
         throw new Error(
-          "Username does not exist. Unable to fetch most recent submission"
+          "Username does not exist. Unable to fetch most recent submission",
         );
       }
       return submissions;
@@ -20,7 +20,7 @@ export async function fetchSubmissions(username) {
   }
 }
 
-export async function fetchUserData(username) {
+export async function fetchUserData(username: string) {
   try {
     const response = await fetch(`${API_URL}/${username}`);
 
