@@ -1,16 +1,6 @@
-import type { PrismaClient as PrismaClientType } from '@prisma/client/scripts/default-index.js';
-import { PrismaClient } from '@/generated/prisma/client.js';
+import { PrismaClient } from '@/generated/@prisma/client/client.js';
+import type { PrismaClientOptions } from '@prisma/client/runtime/client';
 
-type PrismaGlobal = typeof globalThis & {
-  prisma?: PrismaClientType;
-};
-
-const globalForPrisma = globalThis as PrismaGlobal;
-
-const prisma = globalForPrisma.prisma ?? new PrismaClient();
-
-if (process.env.NODE_ENV !== 'production') {
-  globalForPrisma.prisma = prisma;
-}
+const prisma = new PrismaClient();
 
 export { prisma };

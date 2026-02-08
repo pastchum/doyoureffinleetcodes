@@ -1,6 +1,8 @@
 import type { Request, Response } from 'express';
 import { addUserService } from '@/services/users/add-user-service.js';
 import { AddUserRequestSchema } from '@/schemas/users.js';
+import { LeetCodeGraphQLClient } from '@/lib/leetcode.js';
+import { supabase } from '@/lib/supabase.js';
 
 // POST /users/
 async function addUserHandler(req: Request, res: Response) {
@@ -13,6 +15,14 @@ async function addUserHandler(req: Request, res: Response) {
       return res.status(400).json({ message: 'Invalid Request' });
     }
 
+    const leetcode_user = await LeetCodeGraphQLClient.getUserProfile(
+      leetcode_username
+    );
+
+    if (!leetcode_user.data?.matchedUser) {
+      return res.status(404).json({ message: 'LeetCode user not found' });
+    }
+
     if (
       typeof username !== 'string' ||
       typeof email !== 'string' ||
@@ -20,6 +30,11 @@ async function addUserHandler(req: Request, res: Response) {
     ) {
       return res.status(400).json({ message: 'Invalid Request' });
     }
+
+    await supabase.auth.signUp({
+        email,
+        password: 'password'
+    })
 
     const user = await addUserService({
       username,
