@@ -1,6 +1,6 @@
-import z from "zod";
-import { prisma } from "@/lib/prisma.js";
-import { UserSchema } from "@/schemas/users.js";
+import z from 'zod';
+import { prisma } from '@/lib/prisma.js';
+import { UserSchema } from '@/schemas/users.js';
 
 async function addUserService(userData: {
   username: string;

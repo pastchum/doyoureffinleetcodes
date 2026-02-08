@@ -14,7 +14,6 @@ export const UserSchema = z.object({
   leetcode_username: z.string().optional(),
 });
 
-
 // region Request and Response Schemas
 
 export const AddUserRequestSchema = z.object({
