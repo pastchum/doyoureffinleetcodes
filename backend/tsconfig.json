@@ -5,6 +5,12 @@
     // "rootDir": "./src",
     // "outDir": "./dist",
 
+    // Path Aliases
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"]
+    },
+
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
@@ -42,5 +48,6 @@
     "skipLibCheck": true
   },
   "include": ["src/**/*.ts"],
+
   "exclude": ["node_modules"]
 }
