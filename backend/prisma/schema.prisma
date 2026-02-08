@@ -12,4 +12,29 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                         Int      @id @default(autoincrement())
+  username                   String   @unique
+  email                       String   @unique
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
+  lastLeetcodeCompletedAt    DateTime?
+  currentStreak              Int      @default(0)
+  longestStreak              Int      @default(0)
+  leetcodeUsername           String?  @unique
+  friendsInitiated           Friend[] @relation("UserInitiated")
+  friendsReceived            Friend[] @relation("FriendReceived")
+}
+
+model Friend {
+  userId    Int      @map("user_id")
+  friendId  Int      @map("friend_id")
+  createdAt DateTime @default(now())
+  user      User     @relation("UserInitiated", fields: [userId], references: [id], onDelete: Cascade)
+  friend    User     @relation("FriendReceived", fields: [friendId], references: [id], onDelete: Cascade)
+
+  @@id([userId, friendId])
 }
